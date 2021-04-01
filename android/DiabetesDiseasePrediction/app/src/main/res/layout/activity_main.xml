@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#C4F8F3F3"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="920dp"
+        android:layout_height="409dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="DIABETES DISEASE PREDICTION"
+        android:textStyle="italic"
+        android:fontFamily="cursive"
+        android:textColor="#3F51B5"
+        android:textSize="26sp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Designed and Developed by Bhavana Gaddam"
+        android:textStyle="italic"
+        android:fontFamily="cursive"
+        android:textColor="#3F51B5"
+        android:textSize="23sp"
+        android:layout_marginTop="12dp"
+        />
+</LinearLayout>

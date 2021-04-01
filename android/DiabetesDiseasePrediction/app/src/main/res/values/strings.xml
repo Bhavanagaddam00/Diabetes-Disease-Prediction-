@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DiabetesDiseasePrediction</string>
+    <string name="pregerr">*Please enter number of pregnancies</string>
+    <string name="sterr">*Please enter skin thickness value in range 2-30</string>
+</resources>

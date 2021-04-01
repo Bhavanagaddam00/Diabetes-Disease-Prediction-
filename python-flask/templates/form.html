@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+  background-image: url('static/d4.jpg');
+  background-repeat: no-repeat;
+  background-size: 2000px 800px;
+  margin-top:100px;
+}
+.hm{
+float:right;
+}
+.check{
+float:right;
+}
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  font-size:17px;
+  align:center;
+  font-variant:Bold;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sex {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+h4{
+color:black;
+size:40px;
+padding-right:8px;
+}
+.styled-select option.service-small {
+    font-size: 15px;
+}
+.styled-select {
+    height: 23px;
+    float: left;
+    width: 100px;
+}
+
+.styled-select select {
+    font-size: 15px;
+    width: 100px;
+    height: 23px;
+}
+
+</style>
+</head>
+   <body>
+   <form   action = "{{ url_for('predict') }}" method = "POST">
+         
+   <table align='center'>
+      <tr>
+		 <td color="white"><b><h4>Pregnancies</h4></b>
+		 </td>
+         <td>
+		 <b><input type = "text" width="48px" height="100px" name = "pregnancies" /></b>
+		 </td>
+		 </tr>
+		 <tr>
+		 <td><b><h4>Glucose</h4></b>
+		 </td>
+         <td>
+		 <div class="styled-select">
+		 <select name="glucose" width="48" height="48">
+  <option value="low">low</option>
+  <option value="medium">medium</option>
+  <option value="high">high</option>
+  </div>
+  
+ 
+</select></td>
+		</tr>
+		<tr>
+		 <td><b><h4>Blood Pressure</h4></b>
+		 </td>
+         <td>
+		 		 <div class="styled-select">
+		 <select class="service-area" name="bp" width="48" height="48">
+  <option value="low">low</option>
+  <option value="medium">medium</option>
+  <option value="high">high</option>
+  </div>
+ 
+</select></td>
+		</tr>
+		<tr>
+		 <td><h4>Skin Thickness</h4>
+		 </td>
+         <td>
+		 <b><input type = "text" width="48px" height="1000px"
+		 name = "skinthickness"/></b></td>
+		</tr>
+		<tr>
+		 <td><h4>Insulin</h4>
+		 </td>
+         <td>
+		 		 <div class="styled-select">
+		 <select class="service-area" name="insulin" width="48" height="48">
+  <option class="service-small" value="low">low</option>
+  <option class="service-small" value="medium">medium</option>
+  <option class="service-small" value="high">high</option></select>
+  </div></td>
+		</tr>
+		<tr>
+		 <td><h4>BMI</h4>
+		 </td>
+         <td>
+		 <div class="styled-select">
+		 <select class="service-area" name="bmi" width="48" height="48">
+  <option class="service-small" value="low">low</option>
+  <option class="service-small" value="medium">medium</option>
+  <option class="service-small" value="high">high</option>
+  </select>
+  </div>
+  </td>
+		</tr>
+		<tr>
+		 <td><h4>Diabetes Pedigree Function</h4>
+		 </td>
+         <td>
+		 <div class="styled-select">
+		 <select class="service-area" name="DPF" width="48" height="48">
+  <option class="service-small" value="normal">normal</option>
+  <option class="service-small" value="prediabetes">prediabetes</option>
+  <option class="service-small" value="diabetes">diabetes</option></select>
+    </div>
+</td>
+		</tr>
+		<tr>
+		 <td><h4>Age</h4>
+		 </td>
+         <td>
+		 <div class="styled-select">
+		 <select class="service-area" name="age" width="48" height="48">
+  <option class="service-small" value="young">young</option>
+  <option class="service-small" value="middle">middle</option>
+  <option class="service-small" value="old">old</option></select>
+  </div>
+  </td>
+		</tr>
+		 
+		 
+	<tr><td><input type="submit" value="submit"></td></tr>
+	
+		 
+</form>
+	  </table>
+	 
+
+   </body>
+</html>

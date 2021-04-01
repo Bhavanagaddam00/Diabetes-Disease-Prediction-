@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+  background-image: url('credit1.jpg');
+  background-repeat: no-repeat;
+  background-size: 1500px 600px;
+}
+.hm{
+float:right;
+}
+.check{
+float:right;
+}
+</style>
+</head>
+<body >
+<a href="index.html" class="hm">Home</a>&nbsp&nbsp&nbsp&nbsp 
+<a href="form.html" class="check" >Check</a>
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection con=DriverManager.getConnection(
+"jdbc:oracle:thin:@localhost:1521:xe","system","manager");
+Statement st=con.createStatement();
+String sql="insert into students values('"+rno+"','"+sn+"','"+brn+"','"+pg+"','"+adr+"')" ;
+int x=st.executeUpdate(sql);
+if(x>0)
+{
+out.println("1 row inserted successfully");
+}
+else
+{
+out.println("not inserted");
+}
+st.close();
+con.close();
+catch (Exception e2)
+{e2.printStackTrace();}
+finally{out.close();}
+</body>
+</html>
