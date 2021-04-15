@@ -29,11 +29,11 @@ def predict():
     if request.method == 'POST':
         l=[]
         int_features=[]       
-        pregnancies=request.form['pregnancies']
+        pregnancies=request.json['pregnancies']
         l.append(pregnancies)
         int_features.append(int(pregnancies))
         ##
-        glucose=request.form['glucose']
+        glucose=request.json['glucose']
         l.append(glucose)
         if glucose=='low':
             glucose=0
@@ -43,7 +43,7 @@ def predict():
             glucose=2
         int_features.append(int(glucose))
         ##
-        bp=request.form['bp']
+        bp=request.json['bp']
         l.append(bp)
         if bp=='low':
             bp=0
@@ -54,11 +54,11 @@ def predict():
         
         int_features.append(int(bp))
         
-        skinthickness=request.form['skinthickness']
+        skinthickness=request.json['skinthickness']
         l.append(skinthickness)
         int_features.append(int(skinthickness))
         
-        insulin=request.form['insulin']
+        insulin=request.json['insulin']
         l.append(insulin)
         if insulin=='low':
             insulin=0
@@ -68,7 +68,7 @@ def predict():
             insulin=2
         int_features.append(int(insulin))
         
-        bmi=request.form['bmi']
+        bmi=request.json['bmi']
         l.append(bmi)
         if bmi=='low':
             bmi=0
@@ -78,7 +78,7 @@ def predict():
             bmi=2
         int_features.append(int(bmi))
         
-        DPF=request.form['DPF']
+        DPF=request.json['DPF']
         l.append(DPF)
         if DPF=='normal':
             DPF=0
@@ -88,7 +88,7 @@ def predict():
             DPF==2
         int_features.append(int(DPF))
         
-        age=request.form['age']
+        age=request.json['age']
         l.append(age)
         if age=='young':
             age=0
@@ -106,11 +106,11 @@ def predict():
         print(output)
         
         if output==0:
-            return render_template('form1.html',prediction_text='Be Safe! You have tested NEGATIVE for diabetes',res=0)
-            #return 0;
+            #return render_template('form1.html',prediction_text='Be Safe! You have tested NEGATIVE for diabetes',res=0)
+            return 'Be Safe! You have tested NEGATIVE for diabetes';
         else:
-            return render_template('form1.html',res=1,prediction_text='We are sorry to say, you have tested POSITIVE for diabetes' )
-            #return 1;
+            #return render_template('form1.html',res=1,prediction_text='We are sorry to say, you have tested POSITIVE for diabetes' )
+            return 'We are sorry to say, you have tested POSITIVE for diabetes';
 
 
 if __name__=="__main__":
