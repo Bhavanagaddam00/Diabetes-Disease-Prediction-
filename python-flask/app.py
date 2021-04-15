@@ -97,13 +97,13 @@ def predict():
         else:
             age=2
         int_features.append(int(age))
-        print(int_features)
+        #print(int_features)
         final_features = [np.array(int_features)]
-        print(final_features)
+        #print(final_features)
         prediction = model.predict(final_features)
-        print(prediction)
+        #print(prediction)
         output = int(prediction)
-        print(output)
+        #print(output)
         
         if output==0:
             #return render_template('form1.html',prediction_text='Be Safe! You have tested NEGATIVE for diabetes',res=0)

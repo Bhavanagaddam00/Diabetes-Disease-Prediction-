@@ -31,21 +31,21 @@ Importing Data """
 
 df = pd.read_csv('diabetes.csv')
 
-print ("Data Head : \n", df.head())
-print ("\nData Tail : \n", df.tail())
-print("\nSample : \n", df.sample(5))
-print("\nData Types:\n",df.dtypes)#datatypes
-print("\nData Info:\n",df.info())
-print("\nData Shape:\n",df.shape)#dimensions
-print ("\n\nData Describe : \n", df.describe())#statistical summary
+#print ("Data Head : \n", df.head())
+#print ("\nData Tail : \n", df.tail())
+#print("\nSample : \n", df.sample(5))
+#print("\nData Types:\n",df.dtypes)#datatypes
+#print("\nData Info:\n",df.info())
+#print("\nData Shape:\n",df.shape)#dimensions
+#print ("\n\nData Describe : \n", df.describe())#statistical summary
 summary=df.describe(include='all')
 
 
 """ PART 3
 Checking Null Values """
 
-for c in summary.columns:
-    print(c,np.sum(summary[c].isnull()))
+#for c in summary.columns:
+#    print(c,np.sum(summary[c].isnull()))
    
     
     
@@ -96,31 +96,30 @@ df=remove_outlier(df,'Pregnancies')
 df=remove_outlier(df,'BloodPressure')
 df=remove_outlier(df,'SkinThickness')
 #df=df.drop(['Age'],axis=1)
-print(df)
+#print(df)
 #print(sns.boxplot(x=df["Insulin"]))
 df['Age']=pd.cut(df['Age'],3,labels=['young','middle','old'])
 df['Age'] = df['Age'].map({"young":0,"middle":1,"old":2})
-print(df)
+#print(df)
 df['Glucose']=pd.cut(df['Glucose'],3,labels=['low','medium','high'])
 df['Glucose'] = df['Glucose'].map({"low":0,"medium":1,"high":2})
-print(df)
+#print(df)
 df['BloodPressure']=pd.cut(df['BloodPressure'],3,labels=['low','medium','high'])
 df['BloodPressure'] = df['BloodPressure'].map({"low":0,"medium":1,"high":2})
-print(df)
+#print(df)
 df['Insulin']=pd.cut(df['Insulin'],3,labels=['low','medium','high'])
 df['Insulin'] = df['Insulin'].map({"low":0,"medium":1,"high":2})
-print(df)
+#print(df)
 df['BMI']=pd.cut(df['BMI'],3,labels=['low','medium','high'])
 df['BMI'] = df['BMI'].map({"low":0,"medium":1,"high":2})
-print(df)
+#print(df)
 df['DiabetesPedigreeFunction']=pd.cut(df['DiabetesPedigreeFunction'],3,labels=['normal','prediabetes','diabetes'])
 df['DiabetesPedigreeFunction'] = df['DiabetesPedigreeFunction'].map({"normal":0,"prediabetes":1,"diabetes":2})
-
-print(df)
+#print(df)
 
 
 train,test=train_test_split(df,test_size=0.2)
-print(test)
+#print(test)
 y=df.Outcome
 x=df.drop('Outcome',axis=1)
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.1,random_state=100)
@@ -133,20 +132,20 @@ x_test=st_x.transform(x_test)
 
 l=[]
 l2=[]
-print(df.dtypes)
+#print(df.dtypes)
 for i in df:
     if df[i].dtype=='float64':
         l2.append(i)
     else:
         l.append(i)
-print(l)
-print(l2)
+#print(l)
+#print(l2)
 
 
 def chi_sqaure(i,j):
     table=pd.crosstab(i,j) 
     stat,p,dof,expected=chi2_contingency(table)
-    print(p)
+#    print(p)
     alpha=0.05
     if p<=alpha:
         return True
@@ -155,10 +154,10 @@ def chi_sqaure(i,j):
 for i in l:
     d=chi_sqaure(df['Outcome'],df[i])
     if d==True:
-        print(i)
+        #print(i)
     elif d==False:
         df=df.drop(i,axis=1)
-print(df.dtypes)
+#print(df.dtypes)
 
 
 ##PCA
@@ -199,12 +198,12 @@ S=SVC()
 S.fit(x_train,y_train)
 #predicting outcome
 y_pre_S=S.predict(x_test)
-print("Accuracy percentage SVC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_S)*100))
+#print("Accuracy percentage SVC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_S)*100))
 svc_accuracy_score=accuracy_score(y_test,y_pre_S)*100
 acc.append(round(svc_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_S)
-print(cm)
+#print(cm)
 # Saving model to disk
 pickle.dump(S, open('model.pkl','wb'))
 # Loading model to compare the results
