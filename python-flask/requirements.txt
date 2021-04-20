@@ -2,9 +2,11 @@ flask
 numpy
 pandas
 seaborn
-scikit-learn
+scikit-learn==0.21.3
 matplotlib
 sklearn
 gunicorn
 requests
 flask-cors
+imblearn
+scipy

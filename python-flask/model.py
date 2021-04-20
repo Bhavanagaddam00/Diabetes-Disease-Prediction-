@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Feb 26 12:48:25 2020
-
 @author: hp
 """
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -24,13 +22,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from scipy.stats import chi2_contingency
 import warnings 
-
-
 """ PART 2
 Importing Data """
-
 df = pd.read_csv('diabetes.csv')
-
 #print ("Data Head : \n", df.head())
 #print ("\nData Tail : \n", df.tail())
 #print("\nSample : \n", df.sample(5))
@@ -39,11 +33,8 @@ df = pd.read_csv('diabetes.csv')
 #print("\nData Shape:\n",df.shape)#dimensions
 #print ("\n\nData Describe : \n", df.describe())#statistical summary
 summary=df.describe(include='all')
-
-
 """ PART 3
 Checking Null Values """
-
 #for c in summary.columns:
 #    print(c,np.sum(summary[c].isnull()))
    
@@ -83,9 +74,7 @@ def remove_outlier(df_in, col_name):
     df_out=df_out1.append(df_out2)
     return df_out
 warnings.simplefilter("ignore")
-
 #print(sns.boxplot(x=df["SkinThickness"]))
-
 plt.figure(figsize=(20,5))
 sns.heatmap(df.corr(),annot=True,cmap='YlGnBu', vmin=None, vmax=None,linewidths=0)
 df=remove_outlier(df,'Insulin')
@@ -116,20 +105,15 @@ df['BMI'] = df['BMI'].map({"low":0,"medium":1,"high":2})
 df['DiabetesPedigreeFunction']=pd.cut(df['DiabetesPedigreeFunction'],3,labels=['normal','prediabetes','diabetes'])
 df['DiabetesPedigreeFunction'] = df['DiabetesPedigreeFunction'].map({"normal":0,"prediabetes":1,"diabetes":2})
 #print(df)
-
-
 train,test=train_test_split(df,test_size=0.2)
 #print(test)
 y=df.Outcome
 x=df.drop('Outcome',axis=1)
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.1,random_state=100)
-
 ##standard scalar
 st_x=StandardScaler()
 x_train=st_x.fit_transform(x_train)
 x_test=st_x.transform(x_test)
-
-
 l=[]
 l2=[]
 #print(df.dtypes)
@@ -140,8 +124,6 @@ for i in df:
         l.append(i)
 #print(l)
 #print(l2)
-
-
 def chi_sqaure(i,j):
     table=pd.crosstab(i,j) 
     stat,p,dof,expected=chi2_contingency(table)
@@ -153,13 +135,9 @@ def chi_sqaure(i,j):
         return False
 for i in l:
     d=chi_sqaure(df['Outcome'],df[i])
-    if d==True:
-        #print(i)
-    elif d==False:
+    if d==False:
         df=df.drop(i,axis=1)
 #print(df.dtypes)
-
-
 ##PCA
 pca = PCA()   
 x_train = pca.fit_transform(x_train) 
@@ -167,16 +145,15 @@ x_test = pca.transform(x_test)
 explained_variance = pca.explained_variance_ratio_
 #print(x_train)
 #print(x_test)
-
-
 """ PART 5
 Applying Algorithms """
-
 acc=[]
 
 ##Smote test
 sm = SMOTE(random_state = 2) 
 x_train_res, y_train_res = sm.fit_sample(x_train, y_train.ravel())
+#sm = SMOTE(random_state = 2) 
+#x_train_res, y_train_res = sm.fit_sample(x_train, y_train.ravel())
 
 '''lr1 = LogisticRegression() 
 #lr1.fit(x_train, y_train) 
@@ -190,8 +167,6 @@ acc.append(round(lr_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, predictions)
 print(cm)'''
-
-
 ##SupportVectorClassifier
 S=SVC()
 #Train the model
@@ -209,7 +184,6 @@ pickle.dump(S, open('model.pkl','wb'))
 # Loading model to compare the results
 model = pickle.load(open('model.pkl','rb'))
 #print(model.predict([[2, 9, 6]]))
-
 '''##DecisionTreeClassifier
 DTC=DecisionTreeClassifier()
 #Train the model
@@ -222,8 +196,6 @@ acc.append(round(dtc_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_DTC)
 print(cm)
-
-
 ##RandomForestClassifier
 RF=RandomForestClassifier()
 #Train the model
@@ -236,8 +208,6 @@ acc.append(round(rf_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_RF)
 print(cm)
-
-
 ##KNeighborsClassifier
 KNC=KNeighborsClassifier()
 #Train the model
@@ -250,8 +220,6 @@ acc.append(round(knc_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_KNC)
 print(cm)
-
-
 ##NaiveBayesClassifier
 gnb = GaussianNB()
 #Train the model
@@ -264,8 +232,6 @@ acc.append(round(gnb_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_gnb)
 print(cm)
-
-
 models=['LR','SVC','DTS','RF','KNN','GNB']
 fig = plt.figure()
 import matplotlib

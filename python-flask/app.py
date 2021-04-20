@@ -4,11 +4,10 @@ Created on Wed Jan 29 12:11:37 2020
 
 @author: hp
 """
-from flask import Flask,url_for
+from flask import Flask
 import numpy as np
-from flask import request, jsonify, render_template
+from flask import request, render_template
 import pickle
-
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 
@@ -107,10 +106,10 @@ def predict():
         
         if output==0:
             #return render_template('form1.html',prediction_text='Be Safe! You have tested NEGATIVE for diabetes',res=0)
-            return 'Be Safe! You have tested NEGATIVE for diabetes';
+            return {'message':'Be Safe! You have tested NEGATIVE for diabetes'}
         else:
             #return render_template('form1.html',res=1,prediction_text='We are sorry to say, you have tested POSITIVE for diabetes' )
-            return 'We are sorry to say, you have tested POSITIVE for diabetes';
+            return {'message':'We are sorry to say, you have tested POSITIVE for diabetes'}
 
 
 if __name__=="__main__":
