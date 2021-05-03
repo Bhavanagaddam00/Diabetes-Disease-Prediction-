@@ -75,8 +75,8 @@ def remove_outlier(df_in, col_name):
     return df_out
 warnings.simplefilter("ignore")
 #print(sns.boxplot(x=df["SkinThickness"]))
-plt.figure(figsize=(20,5))
-sns.heatmap(df.corr(),annot=True,cmap='YlGnBu', vmin=None, vmax=None,linewidths=0)
+#plt.figure(figsize=(20,5))
+#sns.heatmap(df.corr(),annot=True,cmap='YlGnBu', vmin=None, vmax=None,linewidths=0)
 df=remove_outlier(df,'Insulin')
 df=remove_outlier(df,'BMI')
 df=remove_outlier(df,'DiabetesPedigreeFunction')
