@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb 26 12:48:25 2020
-@author: hp
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -13,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix, classification_report 
-from imblearn.over_sampling import SMOTE 
+from imblearn.over_sampling import SMOTE
 from sklearn.decomposition import PCA 
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
@@ -151,22 +146,27 @@ acc=[]
 
 ##Smote test
 sm = SMOTE(random_state = 2) 
-x_train_res, y_train_res = sm.fit_sample(x_train, y_train.ravel())
-#sm = SMOTE(random_state = 2) 
-#x_train_res, y_train_res = sm.fit_sample(x_train, y_train.ravel())
-
-'''lr1 = LogisticRegression() 
+x_train_res, y_train_res = sm.fit_resample(x_train, y_train.ravel())
+'''
+lr1 = LogisticRegression() 
 #lr1.fit(x_train, y_train) 
-lr1.fit(x_train_res, y_train_res.ravel()) 
+lr1.fit(x_train, y_train) 
 predictions = lr1.predict(x_test) 
 # print classification report 
-print(classification_report(y_test, predictions)) 
-print("Accuracy percentage LR:"+"{:.2f}".format(accuracy_score(y_test,predictions)*100))
+#print(classification_report(y_test, predictions)) 
+#print("Accuracy percentage LR:"+"{:.2f}".format(accuracy_score(y_test,predictions)*100))
 lr_accuracy_score=accuracy_score(y_test,predictions)*100
 acc.append(round(lr_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, predictions)
-print(cm)'''
+#print(cm)
+# Saving model to disk
+pickle.dump(lr1, open('model.pkl','wb'))
+# Loading model to compare the results
+model = pickle.load(open('model.pkl','rb'))
+#print(model.predict([[2, 9, 6]]))'''
+
+
 ##SupportVectorClassifier
 S=SVC()
 #Train the model
@@ -176,6 +176,7 @@ y_pre_S=S.predict(x_test)
 #print("Accuracy percentage SVC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_S)*100))
 svc_accuracy_score=accuracy_score(y_test,y_pre_S)*100
 acc.append(round(svc_accuracy_score,2))
+#print(svc_accuracy_score)
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_S)
 #print(cm)
@@ -184,54 +185,85 @@ pickle.dump(S, open('model.pkl','wb'))
 # Loading model to compare the results
 model = pickle.load(open('model.pkl','rb'))
 #print(model.predict([[2, 9, 6]]))
-'''##DecisionTreeClassifier
+
+'''
+##NaiveBayesClassifier
+gnb = GaussianNB()
+#Train the model
+gnb.fit(x_train_res,y_train_res)
+#predicting outcome
+y_pre_gnb=gnb.predict(x_test)
+#print("Accuracy percentage GNB:"+"{:.2f}".format(accuracy_score(y_test,y_pre_gnb)*100))
+gnb_accuracy_score=accuracy_score(y_test,y_pre_gnb)*100
+acc.append(round(gnb_accuracy_score,2))
+print(gnb_accuracy_score)
+#confusion matrix
+cm = confusion_matrix(y_test, y_pre_gnb)
+#print(cm)
+# Saving model to disk
+pickle.dump(gnb, open('model.pkl','wb'))
+# Loading model to compare the results
+model = pickle.load(open('model.pkl','rb'))
+#print(model.predict([[2, 9, 6]]))
+
+
+##DecisionTreeClassifier
 DTC=DecisionTreeClassifier()
 #Train the model
-DTC.fit(x_train,y_train)
+DTC.fit(x_train_res,y_train_res)
 #predicting outcome
 y_pre_DTC=DTC.predict(x_test)
-print("Accuracy percentage DTC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_DTC)*100))
+#print("Accuracy percentage DTC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_DTC)*100))
 dtc_accuracy_score=accuracy_score(y_test,y_pre_DTC)*100
 acc.append(round(dtc_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_DTC)
-print(cm)
+#print(cm)
+# Saving model to disk
+pickle.dump(DTC, open('model.pkl','wb'))
+# Loading model to compare the results
+model = pickle.load(open('model.pkl','rb'))
+#print(model.predict([[2, 9, 6]]))
+
+
 ##RandomForestClassifier
 RF=RandomForestClassifier()
 #Train the model
-RF.fit(x_train,y_train)
+RF.fit(x_train_res,y_train_res)
 #predicting outcome
 y_pre_RF=RF.predict(x_test)
-print("Accuracy percentage RF:"+"{:.2f}".format(accuracy_score(y_test,y_pre_RF)*100))
+#print("Accuracy percentage RF:"+"{:.2f}".format(accuracy_score(y_test,y_pre_RF)*100))
 rf_accuracy_score=accuracy_score(y_test,y_pre_RF)*100
 acc.append(round(rf_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_RF)
-print(cm)
+#print(cm)
+# Saving model to disk
+pickle.dump(RF, open('model.pkl','wb'))
+# Loading model to compare the results
+model = pickle.load(open('model.pkl','rb'))
+#print(model.predict([[2, 9, 6]]))
+
+
 ##KNeighborsClassifier
 KNC=KNeighborsClassifier()
 #Train the model
-KNC.fit(x_train,y_train)
+KNC.fit(x_train_res,y_train_res)
 #predicting outcome
 y_pre_KNC=KNC.predict(x_test)
-print("Accuracy percentage KNC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_KNC)*100))
+#print("Accuracy percentage KNC:"+"{:.2f}".format(accuracy_score(y_test,y_pre_KNC)*100))
 knc_accuracy_score=accuracy_score(y_test,y_pre_KNC)*100
 acc.append(round(knc_accuracy_score,2))
 #confusion matrix
 cm = confusion_matrix(y_test, y_pre_KNC)
-print(cm)
-##NaiveBayesClassifier
-gnb = GaussianNB()
-#Train the model
-gnb.fit(x_train,y_train)
-#predicting outcome
-y_pre_gnb=gnb.predict(x_test)
-print("Accuracy percentage GNB:"+"{:.2f}".format(accuracy_score(y_test,y_pre_gnb)*100))
-gnb_accuracy_score=accuracy_score(y_test,y_pre_gnb)*100
-acc.append(round(gnb_accuracy_score,2))
-#confusion matrix
-cm = confusion_matrix(y_test, y_pre_gnb)
-print(cm)
+#print(cm)
+# Saving model to disk
+pickle.dump(KNC, open('model.pkl','wb'))
+# Loading model to compare the results
+model = pickle.load(open('model.pkl','rb'))
+#print(model.predict([[2, 9, 6]]))
+
+
 models=['LR','SVC','DTS','RF','KNN','GNB']
 fig = plt.figure()
 import matplotlib
