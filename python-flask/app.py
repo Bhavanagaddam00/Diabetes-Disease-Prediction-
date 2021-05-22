@@ -38,7 +38,7 @@ def predict():
             glucose=0
         elif glucose=='medium':
             glucose=1
-        else:
+        elif glucose=='high':
             glucose=2
         int_features.append(int(glucose))
         ##
@@ -48,7 +48,7 @@ def predict():
             bp=0
         elif bp=='medium':
             bp=1
-        else:
+        elif bp=='high':
             bp=2
         
         int_features.append(int(bp))
@@ -63,7 +63,7 @@ def predict():
             insulin=0
         elif insulin=='medium':
             insulin=1
-        else:
+        elif insulin=='high':
             insulin=2
         int_features.append(int(insulin))
         
@@ -73,7 +73,7 @@ def predict():
             bmi=0
         elif bmi=='medium':
             bmi=1
-        else:
+        elif bmi=='high':
             bmi=2
         int_features.append(int(bmi))
         
@@ -82,18 +82,19 @@ def predict():
         if DPF=='normal':
             DPF=0
         elif DPF=='prediabetes':
-            DPF==1
-        else:
-            DPF==2
+            DPF=1
+        elif DPF=='diabetes':
+            DPF=2
         int_features.append(int(DPF))
         
         age=request.json['age']
+        
         l.append(age)
         if age=='young':
             age=0
         elif age=='middle':
             age=1
-        else:
+        elif age=='old':
             age=2
         int_features.append(int(age))
         #print(int_features)
