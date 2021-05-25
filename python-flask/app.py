@@ -8,6 +8,7 @@ from flask import Flask
 import numpy as np
 from flask import request, render_template
 import pickle
+
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 
@@ -31,7 +32,7 @@ def predict():
         pregnancies=request.json['pregnancies']
         l.append(pregnancies)
         int_features.append(int(pregnancies))
-        ##
+        
         glucose=request.json['glucose']
         l.append(glucose)
         if glucose=='low':
